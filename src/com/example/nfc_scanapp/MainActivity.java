@@ -69,8 +69,6 @@ public class MainActivity extends Activity {
 		device_text.setTextSize(textSize);
 		tagView.setTextSize(textSize);
 
-		host_text.setText("120.114.138.168:8888/2013/12/01/index.php");
-
 	}
 
 	// handling ACTION_TAG_DISCOVERED action from intent:
