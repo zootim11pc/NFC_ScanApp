@@ -8,6 +8,7 @@ POST key
  * database
  * table
  * device
+ * uid
  
 ###Screenshot
 

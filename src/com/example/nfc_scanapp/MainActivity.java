@@ -105,17 +105,17 @@ public class MainActivity extends Activity {
 		if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
 
 			((TextView) findViewById(R.id.tagView))
-					.setText("\nImformation \nDecimal: " + getReversed(id));
+					.setText("\nImformation \nDecimal: " + getDec(id));
 
 			new LoadingDataAsyncTask().execute();
 		}
 	}
 
 	// Decimal
-	private long getReversed(byte[] bytes) {
+	private long getDec(byte[] bytes) {
 		long result = 0;
 		long factor = 1;
-		for (int i = bytes.length - 1; i >= 0; --i) {
+		for (int i = 0; i < bytes.length; ++i) {
 			long value = bytes[i] & 0xffl;
 			result += value * factor;
 			factor *= 256l;
@@ -139,7 +139,7 @@ public class MainActivity extends Activity {
 			nameValuePairs.add(new BasicNameValuePair("device", device_text
 					.getText().toString()));
 			nameValuePairs.add(new BasicNameValuePair("uid", String
-					.valueOf(getReversed(id))));
+					.valueOf(getDec(id))));
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs,
 					HTTP.UTF_8));
 
