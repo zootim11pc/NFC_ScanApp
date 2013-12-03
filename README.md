@@ -14,3 +14,7 @@ POST key
 
 [![image](https://raw.github.com/zootim11pc/NFC_ScanApp/master/docs/Screenshot_2013-12-03-13-06-44.png)](https://github.com/zootim11pc/NFC_ScanApp/blob/master/docs/Screenshot_2013-12-03-13-06-44.png)
  
+ 
+ 
+ 
+ Released under MIT License.
