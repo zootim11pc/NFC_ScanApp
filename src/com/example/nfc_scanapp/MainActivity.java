@@ -36,8 +36,9 @@ public class MainActivity extends Activity {
 	TextView host_ip, database_name, table_name, device_name, tagView;
 	EditText host_text, database_text, table_text, device_text;
 
-	//統一字體大小
+	// 統一字體大小
 	float textSize = 40;
+	byte[] id;
 
 	// list of NFC technologies detected:
 	private final String[][] techList = new String[][] { new String[] {
@@ -67,6 +68,8 @@ public class MainActivity extends Activity {
 		table_text.setTextSize(textSize);
 		device_text.setTextSize(textSize);
 		tagView.setTextSize(textSize);
+
+		host_text.setText("120.114.138.168:8888/2013/12/01/index.php");
 
 	}
 
@@ -99,13 +102,14 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onNewIntent(Intent intent) {
+		id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
+
 		if (intent.getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)) {
-			byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
 
 			((TextView) findViewById(R.id.tagView))
 					.setText("\nImformation \nDecimal: " + getReversed(id));
 
-			new LoadingDataAsyncTask();
+			new LoadingDataAsyncTask().execute();
 		}
 	}
 
@@ -136,6 +140,8 @@ public class MainActivity extends Activity {
 					.getText().toString()));
 			nameValuePairs.add(new BasicNameValuePair("device", device_text
 					.getText().toString()));
+			nameValuePairs.add(new BasicNameValuePair("uid", String
+					.valueOf(getReversed(id))));
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs,
 					HTTP.UTF_8));
 
@@ -143,7 +149,6 @@ public class MainActivity extends Activity {
 			HttpResponse response = httpclient.execute(httppost);
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 
 		}
 	}
